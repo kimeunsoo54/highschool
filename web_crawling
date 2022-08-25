@@ -1,0 +1,21 @@
+def syn(a):
+    cha = quote(a)
+    url = 'https://wordsisters.com/search/' + cha
+
+    html = urllib.request.urlopen(url).read()
+    soup = BeautifulSoup(html, 'html.parser')
+
+
+    syn = soup.find_all(class_ = 'synonym_button')
+
+
+    list=[]
+    for i in syn:
+        a = i.attrs['value']
+        for j in range(0,len(a)):
+            if a[j]=='&':
+                a=a[:j]
+                break
+        list.append(a)
+
+
