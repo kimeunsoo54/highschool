@@ -1,0 +1,65 @@
+// C++ code
+int melody[8]={262, 294, 330, 349, 392, 440, 494, 523};
+int trig=2, echo=3, speaker=7;
+
+
+void setup(){
+  Serial.begin(9600);
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+  pinMode(speaker, OUTPUT);
+  
+  
+}
+
+void loop()
+{
+  float distance, duration;
+  digitalWrite(trig, HIGH);
+  delay(1);
+  digitalWrite(trig, LOW);
+  duration=pulseIn(echo, HIGH);
+  distance=((float)(duration * 340)/10000)/2;
+  Serial.println(distance);
+  
+  int i;
+  if (distance<=100) {
+    i=map(distance, 0, 100, 7,0);
+    tone(speaker, melody[i], 250);
+    delay(300);
+  }
+  else {
+    noTone(speaker);
+  }
+  
+}
+
+/////////////////////////
+
+int angle=0;
+
+void setup() {
+  Serial.begin(9600);
+  PinMode(A0, INPUT);
+  PinMode(A1, INPUT);
+  PinMode(A2, INPUT);
+  PinMode(13, OUTPUT);
+  digitalWrite(A0, HIGH);
+  digitalWrite(A2, HIGH);
+  digitalWrite(A3, HIGH);
+}
+
+
+
+void loop() {
+  float angle1=analogRead(A2);
+  float angle2=analogRead(A3);
+  
+  if (angle1<40 or angle2<40) {
+    digitalWrite(13, HIGH);
+  }
+  
+  else {
+    digitalWrite(13, HIGH);
+  }
+}
